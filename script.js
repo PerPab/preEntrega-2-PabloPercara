@@ -70,30 +70,47 @@ function inventario(datos){
             }
             let producto = datos.find(producto => (producto.codigo === codigo) || (producto.nombre === codigo.toUpperCase()))
             let busqueda = datos.findIndex( producto => (producto.codigo === codigo) || (producto.nombre === codigo.toUpperCase()))
-            let respuesta = confirm(`Seguro desea eliminar el producto ${producto.nombre}, en el índice ${busqueda}?`)
+            if(producto != undefined){
+                let respuesta = confirm(`Seguro desea eliminar el producto ${producto.nombre}, en el índice ${busqueda}?`)
                 if(respuesta == true){
                     datos.splice(busqueda, 1)
                     alert("Producto eliminado!")
                     inventario(datos)
                 }else{inventario(datos)}
+            }else{
+                alert("Producto no encontrado!")
+                //inventario(datos);
+            }
+            
         }else if(menu == 3){//-----------CONSULTAR STOCK-----------------------------------------------------------
             let codigo = prompt("Ingrese el codigo o nombre del producto buscado") 
             if(codigo == null){
                 inventario(datos)
             }
             let busqueda = datos.find( producto => (producto.codigo === codigo) || (producto.nombre === codigo.toUpperCase()))
-            let resultado = confirm(`El stock disponible del producto ${busqueda.nombre} es de ${busqueda.stock} unidades\n Desea realizar otra busqueda?`)
-            if(!resultado || resultado){
+            if(busqueda!=undefined){
+                let resultado = confirm(`El stock disponible del producto ${busqueda.nombre} es de ${busqueda.stock} unidades\nDesea realizar otra busqueda?`)
+                if(!resultado || resultado){
                 inventario(datos);
+                }
+            }else{
+                alert('Producto no encontrado!')
             }
+            
         }else if(menu == 4){//----------CONSULTAR UBICACION---------------------------------------------------------
             let codigo = prompt("Consultar Ubicación por codigo o nombre") 
             if(codigo==null){
                 inventario(datos)
             }
             let busqueda = datos.find( producto => (producto.codigo === codigo) || (producto.nombre === codigo.toUpperCase()))
-            alert(`La ubicación del producto ${busqueda.nombre} es ${busqueda.ubicacion}`);
-            inventario(datos);
+            if(busqueda!=undefined){
+                alert(`La ubicación del producto ${busqueda.nombre} es ${busqueda.ubicacion}`);
+                inventario(datos);
+
+            }else{
+                alert('Producto no encontrado!')
+            }
+            
 
         }else if( menu == 5){//-----------LISTAR BASE DE DATOS--------------------------------------------------------
             let vista = 'Productos disponibles en la base de datos: \n\n';
@@ -106,6 +123,7 @@ function inventario(datos){
                 inventario(datos)
             }else{
                 inventario.break() 
+                
             }  
         } 
     }   
