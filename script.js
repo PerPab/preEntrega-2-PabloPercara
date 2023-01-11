@@ -105,19 +105,11 @@ function inventario(datos){
             if(!consulta){
                 inventario(datos)
             }else{
-                
-            }
-
-
-            
-        }
-
-        
-    }
-   
-    
+                inventario.break() 
+            }  
+        } 
+    }   
 }
-
 
 //------------LLAMADA A LA FUNCION-----------------
 
